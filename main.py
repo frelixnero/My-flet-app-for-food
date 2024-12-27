@@ -334,8 +334,8 @@ class AppFood(Container) :
         ]
         
         self.grid_view = GridView(
-            runs_count = 4,#self.runs_count,
-            child_aspect_ratio = 1.5,#self.child_aspect_ratio,
+            runs_count = self.runs_count,#self.runs_count,
+            child_aspect_ratio = self.child_aspect_ratio,#self.child_aspect_ratio,
             on_scroll_interval = 1,
             #auto_scroll=True, # Enable auto scrolling scroll=ft.ScrollMode.ALWAYS
             controls = self.products
