@@ -317,19 +317,19 @@ class AppFood(Container) :
         self.products = [
             ProductCard(self.page, "/egusipyam.jpg", "Egusi Soup and Pounded Yam", "A serving of our expertly prepared egusi soup and pouded yam",
                         "2500", "4.7"),
-            ProductCard(self.page, "assets/fried rice.jpg", "Fried Rice", "A plate of our expertly prepared fried rice",
+            ProductCard(self.page, "/fried rice.jpg", "Fried Rice", "A plate of our expertly prepared fried rice",
                         "2500", "4.3"),
-            ProductCard(self.page, "assets/riceandstew.jpg", "White Rice and Stew", "A plate of our expertly prepared jollof rice",
+            ProductCard(self.page, "/riceandstew.jpg", "White Rice and Stew", "A plate of our expertly prepared jollof rice",
                         "2500", "4.5"),
-            ProductCard(self.page, "assets/fufu.jpg", "Fufu and Ogbono Soup", "A serving of our expertly prepared ogbono soup and fufu",
+            ProductCard(self.page, "/fufu.jpg", "Fufu and Ogbono Soup", "A serving of our expertly prepared ogbono soup and fufu",
                         "2500", "4.3"),
-            ProductCard(self.page, "assets/jellofrice.jpg", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+            ProductCard(self.page, "/jellofrice.jpg", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                         "2500", "4.3"),
-            ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+            ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                         "2500", "4.3"),
-            ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+            ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                         "2500", "4.3"),
-            ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+            ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                         "2500", "4.3")
         ]
         
@@ -354,7 +354,7 @@ class AppFood(Container) :
                             Container(
                                 border_radius = 10,
                                 content=Image(
-                                    src = "assets/jelo.png",
+                                    src = "/jelo.png",
                                     height = 30,
                                 )
                             )
@@ -388,19 +388,19 @@ class AppFood(Container) :
                                     controls = [
                                                 ProductCard(self.page, "egusipyam.jpg", "Egusi Soup and Pounded Yam", "A serving of our expertly prepared egusi soup and pouded yam",
                                                             "2500", "4.7"),
-                                                ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+                                                ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3"),
-                                                ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+                                                ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3"),
-                                                ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+                                                ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3"),
-                                                ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+                                                ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3"),
-                                                ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+                                                ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3"),
-                                                ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+                                                ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3"),
-                                                ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
+                                                ProductCard(self.page, "/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3")
                                     ]
                                 ) 
