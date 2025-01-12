@@ -288,7 +288,7 @@ class ProductCard(Container) :
         
     
 class AppFood(Container) :
-    def __init__(self,page):
+    def __init__(self, page : Page):
         super().__init__()
         
         self.page = page
@@ -315,7 +315,7 @@ class AppFood(Container) :
         
         
         self.products = [
-            ProductCard(self.page, "assets/egusipyam.jpg", "Egusi Soup and Pounded Yam", "A serving of our expertly prepared egusi soup and pouded yam",
+            ProductCard(self.page, "/egusipyam.jpg", "Egusi Soup and Pounded Yam", "A serving of our expertly prepared egusi soup and pouded yam",
                         "2500", "4.7"),
             ProductCard(self.page, "assets/fried rice.jpg", "Fried Rice", "A plate of our expertly prepared fried rice",
                         "2500", "4.3"),
@@ -382,11 +382,12 @@ class AppFood(Container) :
                             Tab(
                                 text = "Appetizers",
                                 content = GridView(
-                                    runs_count = 2,
-                                    child_aspect_ratio = 0.75,
+                                    runs_count = self.runs_count,#self.runs_count,
+                                    child_aspect_ratio = self.child_aspect_ratio,#self.child_aspect_ratio,
+                                    on_scroll_interval = 1,
                                     controls = [
-                                                ProductCard(self.page, "assets/jollof.png", "White Rice", "A plate of our expertly prepared jollof rice",
-                                                            "2500", "4.3"),
+                                                ProductCard(self.page, "egusipyam.jpg", "Egusi Soup and Pounded Yam", "A serving of our expertly prepared egusi soup and pouded yam",
+                                                            "2500", "4.7"),
                                                 ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
                                                             "2500", "4.3"),
                                                 ProductCard(self.page, "assets/jollof.png", "Jollof Rice", "A plate of our expertly prepared jollof rice",
@@ -633,4 +634,4 @@ def main() :
     pass
 
 
-app(target = AppFood, assets_dir="assets")
+app(target =  lambda page : AppFood(page), assets_dir="assets")
