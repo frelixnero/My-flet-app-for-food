@@ -1,7 +1,5 @@
 from flet import *
-
-
-
+import asyncio
 
 class ProductPage(View) :
     def __init__(self, page, src, title, sub_title, price, rating : str):
@@ -210,6 +208,7 @@ class ProductCard(Container) :
         )
         
         self.page = page
+        self.page_extra = page
         self.img_src = src
         self.img_src = src
         self.title = title
@@ -280,6 +279,21 @@ class ProductCard(Container) :
     
     def show_container(self,e) :
         product_view = ProductPage(self.page, self.img_src, self.title, self.sub_title, self.price, self.rating)
+        # if not self.page:
+        #     print("Page is missing. Trying to fetch again...")
+            
+        # if self.page:
+        #     self.page.views.append(product_view)
+        #     self.page.update()
+        
+        
+        if self.page :
+            print ('the page exists')
+            print(f'this is the extra page {self.page_extra.views}')
+        else : 
+            self.page = self.page_extra
+            print(f"this is the page after setting the page to page_extra{self.page.views}")
+        
         self.page.views.append(product_view)
         self.page.update()
     
@@ -292,6 +306,7 @@ class AppFood(Container) :
         super().__init__()
         
         self.page = page
+        self.page_extra = page
         self.color_food = "#b9894b"
         self.bg_color = "#0c0f14"
         self.container_color = "#141821"
@@ -302,13 +317,11 @@ class AppFood(Container) :
         self.page.theme = Theme(scrollbar_theme=ScrollbarTheme(thumb_color=self.color_food),)
         # self.page.window_width = 390  # Set window width
         # self.page.window_height = 700  # Set window height
-
         
         # Responsive values
-        self.runs_count = 4
+        self.runs_count = 3
         self.child_aspect_ratio = 1
-        self.page.on_resize = self.on_resize
-        self.page.on_viewport_change = self.on_viewport_change
+
 
 
 
@@ -333,13 +346,11 @@ class AppFood(Container) :
                         "2500", "4.3")
         ]
         
-        self.grid_view = GridView(
-            runs_count = self.runs_count,#self.runs_count,
-            child_aspect_ratio = self.child_aspect_ratio,#self.child_aspect_ratio,
-            on_scroll_interval = 1,
-            #auto_scroll=True, # Enable auto scrolling scroll=ft.ScrollMode.ALWAYS
-            controls = self.products
-        )
+        self.runs_count = 3
+        self.child_aspect_ratio = 1
+        
+       # Create the initial GridView
+        self.grid_view = self.create_grid_view()
         
         self.container1 = Container(
             padding = 10,
@@ -376,7 +387,7 @@ class AppFood(Container) :
                         tabs = [
                             Tab(
                                 text = "Main Course",
-                                content = self.grid_view
+                                 content = self.grid_view
                                 
                             ),
                             Tab(
@@ -407,13 +418,7 @@ class AppFood(Container) :
                             ),
                             Tab(
                                 text = "Desserts",
-                                content = GridView(
-                                    runs_count = 2,
-                                    child_aspect_ratio = 0.0,
-                                    controls = [
-                                        
-                                    ]
-                                ) 
+                                content = self.grid_view
                             ),
                             Tab(
                                 text = "Cusines",
@@ -552,9 +557,56 @@ class AppFood(Container) :
                 ]
             )
         )
-
-        self.adjust_ui()
+        # self.page.on_resized = self.on_resize
+        self.page.on_resized = self.on_resize
         
+    def create_grid_view(self):
+        """
+        Helper function to create a GridView with current properties.
+        """
+        return GridView(
+            runs_count=self.runs_count,
+            child_aspect_ratio=self.child_aspect_ratio,
+            controls=self.products,
+        )
+    
+    
+    async def on_resize(self, e):
+        """
+        Update runs_count and child_aspect_ratio based on page width, and refresh the GridView.
+        """
+        if self.page.width < 600:  # Mobile view
+            self.runs_count = 2
+            self.child_aspect_ratio = 0.75
+        elif self.page.width > 600 and self.page.width < 1000:
+            self.runs_count = 3
+            self.child_aspect_ratio = 1.2
+        elif self.page.width > 1000 :  # Desktop view
+            self.runs_count = 4
+            self.child_aspect_ratio = 1.5
+
+        # Log updated properties for debugging
+        print(f"Updated GridView: runs_count={self.runs_count}, child_aspect_ratio={self.child_aspect_ratio}")
+        print(f"Page width: {self.page.width}")
+    
+        
+        # Recreate the GridView and update the Tabs content
+        self.grid_view = self.create_grid_view()
+        # Update the Main Course tab with the new GridView
+        self.container1.content.controls[3].content.tabs[0].content = self.grid_view
+        
+        #     self.page.update()
+        # await asyncio.sleep(0.1)  # Small delay
+        # if self.page:
+        #     self.page.update()
+        # else:
+        #     print("Page is None after delay.")
+        # if self.page_extra.views == self.page.views:
+            
+        #     print(f'this is the extra page after resizing {self.page_extra.views}')
+        # Force an update of the page to reflect changes
+        self.page.update()    
+
     
     def filter_products(self,e) :
         search_text = e.control.value.lower()
@@ -600,38 +652,9 @@ class AppFood(Container) :
             self.container_4.offset = transform.Offset(0.0, 0.0)
         
         self.page.update()
-    
-    
-    def adjust_ui(self):
-        # Update responsive layout properties
-        if self.page.window_width < 600:  # Mobile
-            self.runs_count = 2
-            self.child_aspect_ratio = 0.75
-        else:  # Desktop
-            self.runs_count = 4
-            self.child_aspect_ratio = 1.5
         
-        # Apply changes to GridView
-        self.grid_view.runs_count = self.runs_count
-        self.grid_view.child_aspect_ratio = self.child_aspect_ratio
-        self.grid_view.update()
-
-    
-    
-    def  on_resize(self,e) :
-        self.adjust_ui()
-        
+    def update_page(self) :
         self.page.update()
-        
-    def on_viewport_change(self, e):
-        self.adjust_ui()
-        self.page.update()
-
-    
        
 
-def main() :
-    pass
-
-
-app(target =  lambda page : AppFood(page), assets_dir="assets")
+app(target =  lambda page : AppFood(page), view="web_browser",assets_dir="assets")
